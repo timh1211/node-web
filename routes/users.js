@@ -5,14 +5,14 @@ var router = express.Router();
 var MongoClient = require('mongodb');
 
 //Database Name
-const dbName = 'testDB';
+const dbName = process.env.MONGODB_NAME || 'testDB';
 
 //khai báo object Id
 var ObjectId = require('mongodb').ObjectID;
 
 //URL
-// const url = 'mongodb://localhost:27017';
-const url = 'mongodb://haulv1997:hautu411971197@ds119090.mlab.com:19090/web-demo';
+const url = process.env.MONGODB_URL || 'mongodb://localhost:27017';
+// const url = 'mongodb://haulv1997:hautu411971197@ds119090.mlab.com:19090/web-demo';
 //
 var jwt = require('jsonwebtoken');
 
@@ -84,6 +84,25 @@ router.post('/getUsers', (req, res) => {
               return res.send({ error: 'DatabaseError', message: 'Connecting failed ! ' });
               client.close();
           });
+  });
+});
+
+//createUser
+router.post('/createUsers', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+      if (err) {
+          return res.send({ error: 'DatabaseError', message: 'Connecting failed !' });
+      }
+      const db = client.db(dbName);
+
+      var userCollection = db.collection('Person');
+
+      userCollection.insertMany(users).then((result) => {
+          res.send({ result: result, lenght: result.lenght });
+          client.close();
+      }).catch((err) => {
+          res.send({ error: 400, message: err });
+      })
   });
 });
 

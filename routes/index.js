@@ -5,11 +5,11 @@ var router = express.Router();
 var MongoClient = require('mongodb');
 
 //Database Name
-const dbName = 'testDB';
+const dbName = process.env.MONGODB_NAME || 'testDB'; //khai báo biến mỗi trường, gán trên heroku
 
 //URL
-// const url = 'mongodb://localhost:27017';
-const url = 'mongodb://haulv1997:hautu411971197@ds119090.mlab.com:19090/web-demo';
+const url = process.env.MONGODB_URL || 'mongodb://localhost:27017';
+// const url = 'mongodb://haulv1997:hautu411971197@ds119090.mlab.com:19090/web-demo';
 //
 var jwt = require('jsonwebtoken');
 
