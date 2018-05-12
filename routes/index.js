@@ -8,8 +8,8 @@ var MongoClient = require('mongodb');
 const dbName = 'testDB';
 
 //URL
-const url = 'mongodb://localhost:27017';
-
+// const url = 'mongodb://localhost:27017';
+const url = 'mongodb://haulv1997:hautu411971197@ds119090.mlab.com:19090/web-demo';
 //
 var jwt = require('jsonwebtoken');
 
